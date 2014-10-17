@@ -1,7 +1,7 @@
-gh-pages
-========
+fallback-webserver
+==================
 
-This repository contains some static pages hosted by GitHub which are used as fallback in case of local Nginx issues or maintenace updates.
+This repository contains some static pages hosted on GitHub pages which are used as fallback in case issues or maintenace of our Nginx.
 
 ### Example Nginx virtual host
 
