@@ -20,7 +20,7 @@ server {
         proxy_pass http://127.0.0.1:8090;
         proxy_redirect default;
         # Assume maintenance in case of 502 error, pass to fallback upstream
-        error_page 502 404 = @fallback;
+        error_page 502 = @fallback;
         proxy_intercept_errors on;
     }
 
