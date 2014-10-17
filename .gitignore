@@ -1,0 +1,13 @@
+# Meta files
+.sass-cache
+.DS_Store
+
+# Node and Bower components
+node_modules
+bower_components
+
+# Assets and files that we'll actually compile
+assets/css/style.css
+assets/css/style.min.css
+assets/js/build.js
+assets/js/modernizr.js
