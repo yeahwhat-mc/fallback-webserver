@@ -15,6 +15,7 @@ server {
 
     proxy_set_header X-Forwarded-For $remote_addr;
 
+    # Primary location
     location / {
         # Pass to Docker
         proxy_pass http://127.0.0.1:8090;
@@ -24,7 +25,9 @@ server {
         proxy_intercept_errors on;
     }
 
+    # Fallback location
     location @fallback {
+    	# Redirect with 302 (temporary redirect) to maintenance page hosted on GitHub pages
         return 302 $scheme://fallback.yeahwh.at/maintenance/forums;
     }
 }
