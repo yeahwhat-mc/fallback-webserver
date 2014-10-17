@@ -1,0 +1,24 @@
+{
+  "name": "fallback.yeahwh.at",
+  "version": "1.0.0",
+  "authors": [
+    "Jonas Friedmann"
+  ],
+  "description": "Fallback static pages for YEAHWHAT?!",
+  "license": "WTFPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11",
+    "modernizr": "~2.8.3"
+  },
+  "resolutions": {
+    "jquery": "1.11"
+  }
+}
