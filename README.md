@@ -3,8 +3,36 @@ gh-pages
 
 This repository contains some static pages hosted by GitHub which are used as fallback in case of local Nginx issues or maintenace updates.
 
+### Example Nginx virtual host
+
+In the example below, you can find the productive virtual host for our Discourse forums which can [be found here](http://forums.yeahwh.at). In case of 502 HTTP status code, we assume the Docker instance is currently getting rebuilded (because of a new version/update) so the Nginx proxy can't reach the actual Discourse upstream and shows the default error page. I rather want a pretty and informative maintenance page so my visitors know whats going on and why they currently can't use the forums. Because I'm lazy I wanted to automate this workflow and not "switching" virtual hosts manually on each update. I found a possibilty to use a fallback upstream, so here's the tiny and easy configuration:    
+
+```
+server {
+    server_name  forums.yeahwh.at;
+
+    access_log  /var/log/nginx/forums.yeahwh.at.access.log;
+
+    proxy_set_header X-Forwarded-For $remote_addr;
+
+    location / {
+        # Pass to Docker
+        proxy_pass http://127.0.0.1:8090;
+        proxy_redirect default;
+        # Assume maintenance in case of 502 error, pass to fallback upstream
+        error_page 502 404 = @fallback;
+        proxy_intercept_errors on;
+    }
+
+    location @fallback {
+        return 302 $scheme://fallback.yeahwh.at/maintenance/forums;
+    }
+}
+```
+
 ### Requirements
 
+* Nginx (as web server)
 * Installed `npm` and `grunt`: `npm install -g grunt-cli`
 
 ### Installation
