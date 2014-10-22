@@ -1,7 +1,7 @@
 html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
+   height: 100%;
+   margin: 0;
+   padding: 0;
 }
 
 .center {
@@ -17,6 +17,15 @@ html, body {
 }
 
 h1 {
-	font: 3.5em 'Amatic SC', cursive;
-	color: #333;
+   font: 3.5em 'Amatic SC', cursive;
+   color: #333;
+}
+
+h3 {
+   font: .7em 'Open Sans', sans-serif;
+   color: #333;
+}
+
+.outageinfo {
+   display: none;
 }
