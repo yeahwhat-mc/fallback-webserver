@@ -50,6 +50,8 @@ The rest of the magic happens via JavaScript in the actual maintenance page. Che
 4. Run grunt task: `grunt`
 5. Thats it. Open the `index.html`!
 
+PS: Use `make` to push to GitHub, since you want to keep the gh-pages and master branch in sync! 
+
 ### Dependencies
 
 * NodeJS (`npm`)
