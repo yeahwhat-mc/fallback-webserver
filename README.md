@@ -5,7 +5,7 @@ This repository contains some static pages hosted on GitHub pages which are used
 
 ### Example Nginx virtual host
 
-In the example below, you can find the productive virtual host for our **Discourse** forums which can [be found here](http://forums.yeahwh.at). In case of 502 HTTP status code, we assume the Docker instance is currently getting rebuilded (because of a new version/update) so the Nginx proxy can't reach the actual Discourse upstream and shows the default error page. I rather want a pretty and informative maintenance page so my visitors know whats going on and why they currently can't use the forums. 
+In the example below, you can find the productive virtual host for our **Discourse** forums which can [be found here](http://forums.yeahwh.at). In case of 502 HTTP status code, we assume the Docker instance is currently getting rebuilded (because of a new version/update) so the Nginx proxy can't reach the actual Discourse upstream and shows the default error page. I rather want a pretty and informative maintenance page so my visitors know whats going on and why they currently can't use the forums.
 
 Because I'm lazy I wanted to automate this workflow and "not switching" virtual hosts manually on each update. I found a possibilty to use a fallback upstream/location, so here's the tiny and easy configuration:    
 
@@ -35,7 +35,7 @@ server {
 }
 ```
 
-The rest of the magic happens via JavaScript in the actual maintenance page. Checkout [`assets/js/_main.js`](assets/js/_main.js).
+The rest of the magic happens via JavaScript in the actual maintenance page. Checkout [`assets/js/_main.js`](assets/js/_main.js). As soon you visit the fallback page, it trys to connect to the referring site every 5 seconds to check if its already online again (HTTP status == 200?). If so, you'll get redirected to the site which was actually in maintenance. If not, it will start to check again in the background.
 
 ### Requirements
 
