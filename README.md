@@ -1,11 +1,13 @@
 fallback-webserver
 ==================
 
-This repository contains some static pages hosted on GitHub pages which are used as fallback in case issues or maintenace of our Nginx.
+This repository contains some static pages hosted on GitHub pages which are used as fallback in case of issues or maintenace of our Nginx.
 
 ### Example Nginx virtual host
 
-In the example below, you can find the productive virtual host for our Discourse forums which can [be found here](http://forums.yeahwh.at). In case of 502 HTTP status code, we assume the Docker instance is currently getting rebuilded (because of a new version/update) so the Nginx proxy can't reach the actual Discourse upstream and shows the default error page. I rather want a pretty and informative maintenance page so my visitors know whats going on and why they currently can't use the forums. Because I'm lazy I wanted to automate this workflow and not "switching" virtual hosts manually on each update. I found a possibilty to use a fallback upstream, so here's the tiny and easy configuration:    
+In the example below, you can find the productive virtual host for our **Discourse** forums which can [be found here](http://forums.yeahwh.at). In case of 502 HTTP status code, we assume the Docker instance is currently getting rebuilded (because of a new version/update) so the Nginx proxy can't reach the actual Discourse upstream and shows the default error page. I rather want a pretty and informative maintenance page so my visitors know whats going on and why they currently can't use the forums. 
+
+Because I'm lazy I wanted to automate this workflow and "not switching" virtual hosts manually on each update. I found a possibilty to use a fallback upstream/location, so here's the tiny and easy configuration:    
 
 ```
 server {
@@ -27,11 +29,13 @@ server {
 
     # Fallback location
     location @fallback {
-    	# Redirect with 302 (temporary redirect) to maintenance page hosted on GitHub pages
+        # Redirect with 302 (temporary redirect) to maintenance page hosted on GitHub pages
         return 302 $scheme://fallback.yeahwh.at/maintenance/forums;
     }
 }
 ```
+
+The rest of the magic happens via JavaScript in the actual maintenance page. Checkout [`assets/js/_main.js`](assets/js/_main.js).
 
 ### Requirements
 
