@@ -1,13 +1,8 @@
 var subdomain, fulldomain;
 
-
-
 // Function to check URL and redirect if we get 200 status
 function checkURL(url) {
   setTimeout(function (){
-    // Hide outage information and show spinner
-    $('.outageinfo').hide();
-    $('.spinner').show();
     // Fire test request
     $.ajax('http://cors-anywhere.herokuapp.com/' + url, {
       type: "HEAD",
@@ -15,12 +10,11 @@ function checkURL(url) {
       statusCode: {
         // In case of 404, disable spinner and show outage info again
         404: function() {
-          $('.spinner').hide();
-          $('.outageinfo').show();
+          console.log("[INFO] Still down. Recheck in 5 seconds ...");
         },
         // In case of 200, disable spinner and redirect back to working website
         200: function() {
-          $('.spinner').hide();
+          console.log("[INFO] Site seems available again. Trying to redirect ...");
           location.href = url;
         }
       }
