@@ -30,12 +30,12 @@ server {
     # Fallback location
     location @fallback {
         # Redirect with 302 (temporary redirect) to maintenance page hosted on GitHub pages
-        return 302 $scheme://fallback.yeahwh.at/maintenance/forums;
+        return 302 $scheme://fallback.yeahwh.at/#forums;
     }
 }
 ```
 
-The rest of the magic happens via JavaScript in the actual maintenance page. Checkout [`assets/js/_main.js`](assets/js/_main.js). As soon you visit the fallback page, it trys to connect to the referring site every 5 seconds to check if its already online again (HTTP status == 200?). If so, you'll get redirected to the site which was actually in maintenance. If not, it will start to check again in the background.
+The rest of the magic happens via JavaScript in the actual maintenance page. Checkout [`assets/js/_main.js`](assets/js/_main.js). As soon you visit the fallback page, it trys to connect to the referring site (subdomain gets passed via URL hash) every 10 seconds to check if its already online again (HTTP status == 200). If so, you'll get redirected to the site which was actually in maintenance. If not, it will start to check again in the background.
 
 ### Requirements
 
@@ -44,13 +44,24 @@ The rest of the magic happens via JavaScript in the actual maintenance page. Che
 
 ### Installation
 
-1. Clone the repository: `git clone https://github.com/yeahwhat-mc/gh-pages`
-2. Install all dependencies: `npm install`
-3. Install web libraries: `bower install`
-4. Run grunt task: `grunt`
-5. Thats it. Open the `index.html`!
+1. Set up a proxy on Heroku to parse status codes:  
+  https://github.com/yeahwhat-mc/heroku-php-status-proxy
+2. Fork and clone the repository:  
+  `git clone https://github.com/<username>/fallback-webserver`
+3. Adjust the `CNAME` file if you want to use a custom domain for your fallback, otherwise remove it
+4. Change the maintenance page as you wish
+5. Push to GitHub and sync master branch with gh-pages:  
+  `make` \*
+5. Thats it. Open your fallback webserver using GitHub's (http://<username>.github.io/fallback-webserver) or your custom domain! 
 
-PS: Use `make` to push to GitHub, since you want to keep the gh-pages and master branch in sync! 
+### Development
+
+1. Install all dependencies:  
+  `npm install`
+2. Install web libraries:  
+  `bower install`
+3. Run grunt task:  
+  `grunt dev`
 
 ### Dependencies
 
