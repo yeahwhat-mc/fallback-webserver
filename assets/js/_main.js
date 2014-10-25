@@ -7,16 +7,22 @@ function checkURL(url) {
   console.log("[INFO] Starting to check connectivity to \"" + url + "\"");
   // Fire test request
   $.ajax('https://yeahwhat-proxy.herokuapp.com/?url=' + url, {
-    type: "HEAD",
+    type: "GET",
+    dataType: "html",
     timeout: timeout * 1000,
     // In case of 404, disable spinner and show outage info again
-    error: function() {
-      console.log("[INFO] Still down. Recheck in " + repeatinterval + " seconds ...");
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("[ERROR] Proxy returned unexpected response. Check request for further information.");
     },
     // In case of 200, disable spinner and redirect back to working website
-    success: function() {
-      console.log("[INFO] Site seems available again. Trying to redirect ...");
-      location.href = url;
+    success: function(data) {
+      var json = jQuery.parseJSON(data);
+      if (json.status.http_code == "200") {
+        console.log("[INFO] Site seems available again. Trying to redirect ...");
+        location.href = url;
+      } else {
+        console.log("[ERROR] Still down. Recheck in " + repeatinterval + " seconds ...");
+      }
     }
   });
 }
