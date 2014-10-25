@@ -1,5 +1,5 @@
 var startupdelay = 5;
-var timeout = 2;
+var timeout = 10;
 var repeatinterval = 10;
 
 // Function to check URL and redirect if we get 200 status
