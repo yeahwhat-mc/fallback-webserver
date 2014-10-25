@@ -40,7 +40,8 @@ The rest of the magic happens via JavaScript in the actual maintenance page. Che
 ### Requirements
 
 * Nginx (as web server)
-* Installed `npm` and `grunt`: `npm install -g grunt-cli`
+* `npm` and `grunt` (only in case you want to change and adjust the (S)CSS or JavaScript):  
+  `npm install -g grunt-cli`
 
 ### Installation
 
