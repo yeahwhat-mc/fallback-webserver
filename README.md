@@ -51,7 +51,7 @@ The rest of the magic happens via JavaScript in the actual maintenance page. Che
 3. Adjust the `CNAME` file if you want to use a custom domain for your fallback, otherwise remove it
 4. Change the maintenance page as you wish
 5. Push to GitHub and sync master branch with gh-pages:  
-  `make` \*
+  `make`
 5. Thats it. Open your fallback webserver using GitHub's (http://<username>.github.io/fallback-webserver) or your custom domain! 
 
 ### Development
