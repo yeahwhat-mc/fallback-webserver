@@ -6,6 +6,8 @@ var repeatinterval = 10;
 function checkURL(url) {
   console.log("[INFO] Starting to check connectivity to \"" + url + "\"");
   // Fire test request
+  // (We use a Heroku hosted proxy that injects the actual HTTP status code as well as the website content, encoded in JSON
+  // You can find the source in the following repository: https://github.com/yeahwhat-mc/heroku-php-status-proxy )
   $.ajax('https://yeahwhat-proxy.herokuapp.com/?url=' + url, {
     type: "GET",
     dataType: "html",
