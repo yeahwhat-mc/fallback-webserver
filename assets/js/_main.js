@@ -1,29 +1,25 @@
-var subdomain, fulldomain;
-
 // Function to check URL and redirect if we get 200 status
 function checkURL(url) {
-  setTimeout(function (){
-    // Fire test request
-    $.ajax('http://cors-anywhere.herokuapp.com/' + url, {
-      type: "HEAD",
-      timeout:1000,
-      statusCode: {
-        // In case of 404, disable spinner and show outage info again
-        404: function() {
-          console.log("[INFO] Still down. Recheck in 5 seconds ...");
-        },
-        // In case of 200, disable spinner and redirect back to working website
-        200: function() {
-          console.log("[INFO] Site seems available again. Trying to redirect ...");
-          location.href = url;
-        }
-      }
-    });
-  }, 5 * 1000);
+  console.log("[INFO] Starting to check connectivity to \"" + url + "\"");
+  // Fire test request
+  $.ajax({
+    type: 'GET',
+    url: 'https://yeahwhat-proxy.herokuapp.com/?url=' + url,
+    timeout: 1000,
+    success: function(data, textStatus, XMLHttpRequest) {
+      console.log("[INFO] Site seems available again. Trying to redirect ...");
+      location.href = url;
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      console.log("[INFO] Still down. Recheck in 5 seconds ...");
+    }
+  });
 }
 
 // If jQuery is loaded, parse hash to store the subdomain
 $(document).ready(function(){
+  var subdomain, fulldomain;
+
   if(window.location.hash) {
     subdomain = window.location.hash.substring(1);
   } else {
@@ -42,5 +38,7 @@ $(document).ready(function(){
   }
 
   // Run checkURL function every 5 seconds
-  setInterval(checkURL('http://' + fulldomain), 0);
+  setTimeout(function() {
+    setInterval(checkURL('http://' + fulldomain), 5 * 1000);
+  }, 5 * 1000);
 });
